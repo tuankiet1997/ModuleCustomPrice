@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="custom_price" resource="default" engine="innodb" comment="Custom Price">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Product ID"/>
+        <column xsi:type="int" name="customer_group_id" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Customer Group ID"/>
+        <column xsi:type="date" name="start_date" comment="Date Start"/>
+        <column xsi:type="date" name="end_date" comment="Date end"/>
+        <column xsi:type="decimal" name="value" scale="6" precision="20" unsigned="false" nullable="false" default="0"
+                comment="Value"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="CAT_PRD_CUS_PRICE_GROUP_ID_GROUP_GROUP_ID"
+                    table="custom_price" column="customer_group_id" referenceTable="customer_group"
+                    referenceColumn="customer_group_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="CAT_PRD_CUS_PRICE_ID_CAT_PRD_ID"
+                    table="custom_price" column="entity_id" referenceTable="catalog_product_entity"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+    </table>
+</schema>
